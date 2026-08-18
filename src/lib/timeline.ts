@@ -30,8 +30,10 @@ export const FRAME_H = 900;
  */
 export const CUTS = [550, 608];
 
+/* BASE_URL, not a leading slash: the sequence is fetched at runtime, so nothing
+   rewrites it at build time and an absolute path 404s under a subpath host. */
 export const FRAME_SRC = (i: number) =>
-  `/frames/f_${String(i + 1).padStart(4, '0')}.webp`;
+  `${import.meta.env.BASE_URL}frames/f_${String(i + 1).padStart(4, '0')}.webp`;
 
 /** which real frame of the film a render step corresponds to */
 export const sourceFrame = (step: number) =>
