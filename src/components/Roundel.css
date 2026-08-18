@@ -1,0 +1,5 @@
+.roundel{display:block;flex:none}
+.roundel__ring{fill:none;stroke:var(--halo);stroke-width:2.4;opacity:.9}
+.roundel__field{fill:var(--void)}
+.roundel__quarter{fill:var(--halo);opacity:.92}
+.roundel__inner-ring{fill:none;stroke:var(--halo);stroke-width:1;opacity:.35}

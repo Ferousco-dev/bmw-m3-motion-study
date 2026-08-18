@@ -1,0 +1,22 @@
+.cursor{
+  position:fixed;top:0;left:0;
+  z-index:60;
+  pointer-events:none;
+  will-change:transform;
+}
+.cursor span{position:absolute;background:var(--halo);opacity:.55;transition:opacity .25s ease}
+.cursor__h{left:-9px;top:0;width:18px;height:1px}
+.cursor__v{left:0;top:-9px;width:1px;height:18px}
+.cursor__ring{
+  left:-14px;top:-14px;width:28px;height:28px;
+  background:none;border:1px solid var(--halo);
+  border-radius:50%;
+  opacity:0;
+  transform:scale(.6);
+  transition:opacity .3s ease, transform .3s cubic-bezier(.2,.7,.2,1);
+}
+.cursor--live .cursor__ring{opacity:.9;transform:scale(1)}
+.cursor--live .cursor__h,.cursor--live .cursor__v{opacity:.35}
+
+@media (pointer:coarse){ .cursor{display:none} }
+@media (prefers-reduced-motion:reduce){ .cursor{display:none} }

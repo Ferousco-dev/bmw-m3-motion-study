@@ -1,0 +1,27 @@
+.end{
+  position:relative;z-index:20;
+  background:var(--void);
+  border-top:1px solid var(--hair);
+  padding:calc(var(--gutter) * 1.4) var(--gutter);
+}
+.end__inner{
+  /* --plate carries a viewport-HEIGHT term left over from the rejected plate
+     layout, so the footer mark drifted out of line with the header's by up to
+     408px as the window resized */
+  width:100%;max-width:1180px;margin:0;
+  display:flex;align-items:center;justify-content:space-between;gap:28px;
+}
+.end__mark{color:var(--halo)}
+.end__nav{display:flex;gap:clamp(20px,3vw,44px)}
+.end__link{
+  color:var(--ash);
+  letter-spacing:.2em;
+  padding-bottom:3px;
+  border-bottom:1px solid transparent;
+  transition:color .25s ease,border-color .25s ease;
+}
+.end__link:hover{color:var(--halo);border-bottom-color:var(--hair)}
+
+@media (max-width:700px){
+  .end__inner{flex-direction:column;align-items:flex-start;gap:16px}
+}

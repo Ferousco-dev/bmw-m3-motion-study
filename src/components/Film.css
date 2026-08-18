@@ -1,0 +1,111 @@
+.film{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  background:var(--void);
+  z-index:0;
+}
+.film__box{position:absolute;will-change:transform}
+.film__canvas{display:block;width:100%;height:100%}
+
+/* Callouts: hairline leader, 5px dot, 10px mono. Annotation, not headline. */
+.callout{
+  position:absolute;
+  display:flex;
+  align-items:center;
+  opacity:0;
+  pointer-events:none;
+  will-change:opacity;
+  background:none;border:0;padding:0;
+  font:inherit;
+}
+@media (pointer:fine) and (prefers-reduced-motion:no-preference){
+  .callout{cursor:none}
+}
+/* touch has no hover, so the affordance must simply be present */
+@media (hover:none){
+  .callout__plus{opacity:1}
+}
+/* a hotspot has to look pressable without becoming a button */
+/* absolute: at opacity 0 it was still occupying 17px horizontally and 15px
+   vertically, pushing every dot off its declared frame position */
+.callout__plus{
+  position:absolute;
+  right:-15px;top:50%;
+  margin-top:-4px;
+  width:9px;height:9px;
+  opacity:0;
+  transition:opacity .3s ease;
+  pointer-events:none;
+}
+.callout__plus::before,.callout__plus::after{
+  content:'';position:absolute;background:var(--halo);
+}
+.callout__plus::before{left:0;top:4px;width:9px;height:1px}
+.callout__plus::after{left:4px;top:0;width:1px;height:9px}
+.callout:hover .callout__plus,.callout:focus-visible .callout__plus{opacity:1}
+.callout:hover .callout__dot{background:var(--halo)}
+.callout:hover .callout__leader{opacity:1}
+.callout:focus-visible{outline:1px solid var(--halo);outline-offset:6px}
+.callout__dot{width:5px;height:5px;border:1px solid var(--halo);border-radius:50%;flex:none;transition:background .25s ease}
+.callout__leader{background:var(--halo);opacity:.5;flex:none}
+/* The explanation travels with the part it describes. */
+.callout__text{
+  position:relative;
+  display:flex;flex-direction:column;gap:7px;
+  max-width:330px;
+  padding:10px 14px;
+  margin:-10px -14px;
+  text-shadow:0 1px 16px rgba(0,0,0,.95),0 0 6px rgba(0,0,0,.85);
+  /* a soft local wash of the page ground: no per-frame cost, no plate, and the
+     only thing that carries the notes over the lit ceiling and softboxes */
+  background:radial-gradient(120% 130% at 50% 50%,
+    rgba(11,13,15,.93) 0%, rgba(11,13,15,.82) 58%, rgba(11,13,15,0) 100%);
+}
+.callout__label{color:var(--halo);white-space:nowrap;font-size:11px}
+.callout__note{
+  font-size:15px;
+  line-height:1.45;
+  letter-spacing:-.005em;
+  color:var(--softbox);
+  text-align:inherit;
+}
+
+
+.callout--left{transform:translate(-100%,-50%)}
+.callout--left .callout__leader{width:var(--lead);height:1px;order:2}
+.callout--left .callout__dot{order:3}
+.callout--left .callout__text{order:1;margin-right:9px;align-items:flex-end;text-align:right}
+
+.callout--right{transform:translate(0,-50%)}
+.callout--right .callout__dot{order:1}
+.callout--right .callout__leader{width:var(--lead);height:1px;order:2}
+.callout--right .callout__text{order:3;margin-left:9px}
+
+.callout--up{flex-direction:column;transform:translate(-50%,-100%)}
+.callout--up .callout__leader{width:1px;height:var(--lead);order:2}
+.callout--up .callout__dot{order:3}
+.callout--up .callout__text{order:1;margin-bottom:9px;align-items:center;text-align:center}
+
+.callout--down{flex-direction:column;transform:translate(-50%,0)}
+.callout--down .callout__leader{width:1px;height:var(--lead)}
+.callout--down .callout__text{margin-top:9px;align-items:center;text-align:center}
+
+/* Cover-fit at 375px leaves only frame-x 37-63% on screen, so anything anchored
+   outside that band puts its whole button off the viewport. Narrow screens get
+   a tighter box, shorter leaders, and a real touch target. */
+@media (max-width:760px){
+  .callout__text{max-width:min(330px,62vw);padding:9px 12px;margin:-9px -12px}
+  .callout__note{font-size:14px}
+  .callout{--lead:clamp(14px,4vw,28px)}
+  .callout__leader{width:var(--lead)}
+  .callout--up .callout__leader,.callout--down .callout__leader{height:var(--lead);width:1px}
+}
+@media (pointer:coarse){
+  .callout__dot{
+    box-sizing:content-box;
+    padding:20px;
+    margin:-20px;              /* 45px target, unchanged 5px dot */
+    background-clip:content-box;
+  }
+}

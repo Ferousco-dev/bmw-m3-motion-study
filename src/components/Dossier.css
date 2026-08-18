@@ -1,0 +1,72 @@
+.dossier{position:fixed;inset:0;z-index:60;pointer-events:none}
+.dossier.is-open{pointer-events:auto}
+
+.dossier__scrim{
+  position:absolute;inset:0;
+  background:rgba(8,9,10,.72);
+  opacity:0;
+  transition:opacity .45s ease;
+  cursor:default;
+}
+.dossier.is-open .dossier__scrim{opacity:1}
+
+.dossier__panel{
+  position:absolute;
+  top:0;right:0;bottom:0;
+  width:min(520px,92vw);
+  background:var(--panel);
+  border-left:1px solid var(--hair);
+  display:flex;flex-direction:column;
+  transform:translateX(100%);
+  transition:transform .55s cubic-bezier(.16,.84,.24,1);
+}
+.dossier.is-open .dossier__panel{transform:none}
+
+.dossier__head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:calc(var(--gutter) * .75) var(--gutter);
+  border-bottom:1px solid var(--hair);
+  flex:none;
+}
+.dossier__head .label{color:var(--halo)}
+.dossier__brand{display:flex;align-items:center;gap:12px}
+.dossier__code{letter-spacing:.24em}
+.dossier__close{color:var(--ash);transition:color .25s ease}
+.dossier__close:hover{color:var(--halo)}
+
+.dossier__body{
+  flex:1;
+  overflow-y:auto;
+  overscroll-behavior:contain;   /* stop the panel's overflow chaining to the page */
+  outline:none;
+  padding:0 var(--gutter) calc(var(--gutter) * 2);
+  scrollbar-width:thin;
+}
+.dossier__group{padding-top:34px}
+.dossier__group-name{
+  color:var(--ash);
+  padding-bottom:12px;
+  border-bottom:1px solid var(--hair-soft);
+  margin-bottom:4px;
+}
+
+.entry{padding:20px 0;border-bottom:1px solid var(--hair-soft);transition:background .5s ease}
+.entry.is-lit{background:rgba(220,230,236,.06)}
+.entry__title{
+  font-size:15px;font-weight:600;letter-spacing:-.01em;
+  color:var(--halo);margin-bottom:8px;
+}
+.entry__body{font-size:14px;line-height:1.65;color:var(--softbox);opacity:.86;max-width:46ch}
+
+.dossier__sources{display:flex;flex-direction:column;gap:10px;padding-top:16px}
+.dossier__sources a{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ash);text-decoration:none;
+  border-bottom:1px solid transparent;
+  transition:color .25s ease,border-color .25s ease;
+}
+.dossier__sources a:hover{color:var(--halo);border-bottom-color:var(--hair)}
+
+@media (prefers-reduced-motion:reduce){
+  .dossier__panel{transition:none}
+}

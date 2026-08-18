@@ -1,0 +1,7 @@
+/* Scroll distance for the film. Seven captions across eight screens gives each
+   moment about a screen, long enough to read, short enough to stay taut. */
+.rig{height:800vh;position:relative}
+.rig__pin{position:sticky;top:0;height:100svh}
+/* 620vh gave the tail annotations 139px of travel on the devices with the
+   longest flicks, page length is not a real cost on touch */
+@media (max-width:760px){ .rig{height:800vh} }
